@@ -35,7 +35,7 @@
 
 + hoi
 - There it is! 
-^ <call>system resources/R/video-format.R 2&> /dev/null</call>
+^ <call>system cmd /C cd C:\Users\bauke_000\Desktop\MovieBuffBot\resources\R && rscript video-format.R > nul</call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 + hoihoi

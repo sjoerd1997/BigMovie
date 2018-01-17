@@ -1,7 +1,7 @@
 // brain.rive
 
 + hello
-- Hi there!
+- Hi!
 
 + how are you
 - I'm fine.
@@ -27,13 +27,22 @@
 + what is the date?
 - The date is: <call>system date</call>
 
++ blabla
+- <call>jdbc localhost 3306 bigmovie root 1234 select count(title) from genres</call>
+
 + which movies did _ _ *
 - <call>jdbc localhost 3306 imdb imdb imdb select title from cast_info, name, title, kind_type where person_id = name.id and title.id = movie_id and kind_id = kind_type.id and name like '<star2>, <star>' and kind = 'movie'</call>
 
-+ [*] video formats [*]
++ hoi
 - There it is! 
-^ <call>system resources/R/video-format.R 2&> /dev/null</call>
-^ <call>send photo /tmp/video-format.jpg The graph produced by R</call>
+^ <call>system resources/R/video-format.R 2> nul</call>
+^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
+
++ hoihoi
+- There it is! 
+^ <call>send photo resources/R/bar_script1.png The graph produced by R</call>
+
+
 
 // Substitutions
 ! sub i'm     = i am
