@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Aswin van Woudenberg
- */
+
 public class SystemSubroutine implements Subroutine {
 
     @Override

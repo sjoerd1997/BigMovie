@@ -11,10 +11,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-/**
- *
- * @author Aswin van Woudenberg
- */
+
 public class MovieBuffBot extends TelegramLongPollingBot {
     RiveScript bot = new RiveScript();
     

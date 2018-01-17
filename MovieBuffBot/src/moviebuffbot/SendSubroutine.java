@@ -11,10 +11,7 @@ import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.bots.DefaultAbsSender;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-/**
- *
- * @author Aswin van Woudenberg
- */
+
 public class SendSubroutine implements Subroutine {
     DefaultAbsSender das;
     
