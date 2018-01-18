@@ -101,7 +101,8 @@
 //B3
 + give me all the movies that are made in <counrtyname> over time
 - Here's a graph!
-^ <call> *WIP*
+^ <call>system resources/R/video-format.R 2> nul</call>
+^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8
 + give a map of <moviename> main location
