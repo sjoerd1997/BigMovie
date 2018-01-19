@@ -20,6 +20,7 @@ public class MovieBuffBot extends TelegramLongPollingBot {
         bot.setSubroutine("system", new SystemSubroutine());
         bot.setSubroutine("jdbc", new JdbcSubroutine());
         bot.setSubroutine("send", new SendSubroutine(this));
+        bot.setSubroutine("map", new MapSubroutine(this));
         bot.loadDirectory("resources/rivescript");
         bot.sortReplies();
     }
@@ -51,13 +52,13 @@ public class MovieBuffBot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         // Return bot username
-        return "rstest1_bot";
+        return "mapsG9_Bot";
     }
 
     @Override
     public String getBotToken() {
         // Return bot token from BotFather
-        return "535001024:AAGO6xwzF7AMw8NfAke2zIQ6GfRT-cb3_gU";
+        return "534198800:AAFwqeXfEoS-208ilsy95GrJBe2AoIJ3Nx8";
     }
 
 }

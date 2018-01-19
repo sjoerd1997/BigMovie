@@ -107,9 +107,9 @@
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8
-+ give a map of <moviename> main location
++ give a map of * main location
 - This is the map.
-^ <call> *WIP*
+^ <call> map <star> </call>
 
 //C7
 + are french films generally less violent
@@ -122,9 +122,9 @@
 ^ <call> *WIP*
 
 //eigen2
-+ [*] (most|populair|location) [*]
-- That's gotta be this place.
-^ <call> *WIP*
+//+ [*] (most|populair|location) [*]
+//- That's gotta be this place.
+//^ <call> *WIP*
 
 // Substitutions
 ! sub &quot;    = "
