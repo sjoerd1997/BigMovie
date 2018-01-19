@@ -78,7 +78,7 @@
 //A9
 + [*] (partially|take place|located|new york) [*]
 - Uhm... New York? Lemme see...
-^ <call> *WIP*
+^ <call> jdbc localhost 3306 bigmovie root 1234 SELECT TITLE, location FROM locations WHERE location LIKE '%New York%';
 
 //A10
 + welke films spelen in meer dan 1 land
@@ -101,9 +101,9 @@
 ^ <call> *WIP*	
 
 //B3
-+ give me all the movies that are made in <counrtyname> over time
++ (give me all the movies that are made in <countryname> over time|hoi)
 - Here's a graph!
-^ <call>system resources/R/video-format.R 2> nul</call>
+^ <call>system cmd /C cd C:\Users\bauke_000\Desktop\MovieBuffBot\resources\R && rscript video-format.R > nul</call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8

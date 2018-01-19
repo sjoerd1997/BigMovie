@@ -6,10 +6,13 @@ import com.rivescript.macro.Subroutine;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.telegram.telegrambots.api.objects.Message;
+import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.bots.DefaultAbsSender;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 
 public class JdbcSubroutine implements Subroutine {
-
     @Override
     public String call(com.rivescript.RiveScript rs, String[] args) {
        String host = args[0];
@@ -28,35 +31,32 @@ public class JdbcSubroutine implements Subroutine {
         Statement statement = null;
         ResultSet resultSet = null;
         
-        try {
+        try {         
             connection=(Connection) DriverManager.getConnection(
-                    "jdbc:mysql://" + host + ":" + port + "/" + db + "?autoReconnect=true&useSSL=false",
+                    "jdbc:mysql://" + host + ":" + port + "/" + db + "?autoReconnect=false&useSSL=false",
                     username, password); 
             statement=(Statement) connection.createStatement();
             resultSet=statement.executeQuery(sql);
+            
             while(resultSet.next()) {
-                int i = resultSet.getMetaData().getColumnCount();
-                for (int j = 1; j <= i; j++) {
-                    if (result.equals("")) {
-                        result = resultSet.getString(j);
-                    } else {
-                        result += resultSet.getString(j) + " ";
-                    }
-                }
-                if (!result.equals("")) 
-                    result += "\n";
+                result += "\n" + resultSet.getString("title");
             }
+           
+            result += "\n...";
+            
+            return result;
         } catch (SQLException ex) {
+            ex.printStackTrace();
         } finally{
             try {
                 resultSet.close();
                 statement.close();
                 connection.close();
             } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
         
         return result;
-    }
-    
+    }   
 }
