@@ -184,7 +184,7 @@ LEFT JOIN staging.ratings AS r
 	AND m.occurance = r.occurance;
 
 ALTER TABLE bigmovie.movies
-ADD INDEX (title, release_year, occurance);
+ADD INDEX (title, release_year, occurance, rating);
 
 ALTER TABLE bigmovie.movies
 ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
