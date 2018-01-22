@@ -98,7 +98,7 @@
 //A19
 + [*] (highest|least|votes) [*]
 - That's this movie.
-^ <call> *WIP*	
+^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies WHERE votes = (SELECT MIN(votes) FROM movies WHERE rating = (SELECT MAX(rating) FROM movies));</call>
 
 //B3
 + (give me all the movies that are made in <countryname> over time|hoi)
