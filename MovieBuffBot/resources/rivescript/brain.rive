@@ -116,15 +116,15 @@
 - Let's take a look.
 ^ <call> *WIP*
 
-//eigen1
+//D1
 + [*] (genre|highest|rating) [*]
 - That's the following.
 ^ <call> *WIP*
 
-//eigen2
-//+ [*] (most|populair|location) [*]
-//- That's gotta be this place.
-//^ <call> *WIP*
+//D2
++ [*] (most|populair|location) [*]
+- That's gotta be this place:\s
+^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT location FROM locations WHERE id = (SELECT location_id FROM movie_location GROUP BY location_id ORDER BY COUNT(location_id) DESC LIMIT 1);</call>
 
 // Substitutions
 ! sub &quot;    = "
