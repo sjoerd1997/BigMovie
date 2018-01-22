@@ -39,10 +39,17 @@ public class JdbcSubroutine implements Subroutine {
             resultSet=statement.executeQuery(sql);
             
             while(resultSet.next()) {
-                result += "\n" + resultSet.getString("title");
+                int i = resultSet.getMetaData().getColumnCount();
+                for (int j = 1; j <= i; j++) {
+                    if (result.equals("")) {
+                        result = resultSet.getString(j);
+                    } else {
+                        result += resultSet.getString(j) + " ";
+                    }
+                }
+                if (!result.equals("")) 
+                    result += "\n";
             }
-           
-            result += "\n...";
             
             return result;
         } catch (SQLException ex) {

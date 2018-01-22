@@ -86,9 +86,9 @@
 ^ <call> *WIP*
 
 //A16
-+ [*] (1990 | beer | genre) [*]
-- You're rather specific, aren't you? Well here you go.
-^ <call> *WIP*
++ [*] (1990|beer|genre) [*]
+- You're rather specific, aren't you? Well here you go:\s
+^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT release_year FROM movies WHERE title LIKE '%beer%' AND release_year >= 1990 GROUP BY release_year ORDER BY COUNT(release_year) DESC LIMIT 1;</call>
 
 //A18
 + [*] (shortest|8|5|higher) [*]

@@ -125,7 +125,7 @@ TERMINATED BY '\n';
 DROP TABLE IF EXISTS bigmovie.movies;
 CREATE TABLE bigmovie.movies (
   title VARCHAR(500) NOT NULL,
-  release_year YEAR(4),
+  release_year INT NULL,
   occurance VARCHAR(10) NULL,
   votes INT NULL,
   rating FLOAT NULL)
