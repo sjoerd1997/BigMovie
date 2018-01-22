@@ -36,7 +36,7 @@ public class MovieBuffBot extends TelegramLongPollingBot {
             long chat_id = update.getMessage().getChatId();
             
             // Get reply
-            String reply = bot.reply(String.valueOf(chat_id), message_text);
+            String reply = bot.reply(String.valueOf(chat_id), message_text);            
 
             SendMessage message = new SendMessage() // Create a message object object
                 .setChatId(chat_id)
