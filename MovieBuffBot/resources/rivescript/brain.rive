@@ -93,7 +93,7 @@
 //A18
 + [*] (shortest|8|5|higher) [*]
 - That's got to be this one.
-^ <call> *WIP*'
+^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id, running_time FROM movie_runningtime, (SELECT id, running_time FROM runningtimes WHERE running_time != 0) as r WHERE runningtime_id = r.id) AS m WHERE id = movie_id AND rating >= 8.5 AND running_time = (SELECT MIN(running_time) FROM runningtimes WHERE running_time != 0);</call>
 
 //A19
 + [*] (highest|least|votes) [*]
