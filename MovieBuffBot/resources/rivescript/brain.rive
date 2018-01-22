@@ -118,8 +118,8 @@
 
 //D1
 + [*] (genre|highest|rating) [*]
-- That's the following.
-^ <call> *WIP*
+- That's the following:\s
+^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT genre FROM genres WHERE id = (SELECT genre_id FROM movies m, movie_genre mg WHERE m.id = mg.movie_id AND rating IS NOT NULL GROUP BY genre_id ORDER BY AVG(rating) DESC LIMIT 1);</call>
 
 //D2
 + [*] (most|populair|location) [*]
