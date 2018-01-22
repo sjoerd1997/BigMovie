@@ -238,8 +238,6 @@ AND A.title = B.title;
 ALTER TABLE bigmovie.movie_genre
 ADD CONSTRAINT FK_Movie FOREIGN KEY (movie_id) REFERENCES bigmovie.movies(id),
 ADD CONSTRAINT FK_Genre FOREIGN KEY (genre_id) REFERENCES bigmovie.genres(id);
-ALTER TABLE bigmovie.movie_genre
-ADD INDEX (FK_Movie, FK_Genre);
 
 /*---------------------------------------------------*/
 
