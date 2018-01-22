@@ -114,7 +114,8 @@
 //C7
 + are french films generally less violent
 - Let's take a look.
-^ <call> *WIP*
+^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript c7.r > nul</call>
+^ <call>send photo resources/R/c7.jpeg The graph produced by R</call>
 
 //D1
 + [*] (genre|highest|rating) [*]
