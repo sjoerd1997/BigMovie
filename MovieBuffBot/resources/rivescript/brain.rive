@@ -103,8 +103,8 @@
 //B3
 + (give me all the movies that are made in <countryname> over time|hoi|willem)
 - Here's a graph!
-^ <call>system cmd /C cd C:/Users/emiel/Desktop/BigMovie/MovieBuffBot/resources/R && rscript video-format.R</call>
-// <call>send photo resources/R/video-format.jpg The graph produced by R</call>
+^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript video-format.R > nul</call>
+^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8
 + give a map of * main location
