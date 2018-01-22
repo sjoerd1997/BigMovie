@@ -77,13 +77,13 @@
 
 //A9
 + [*] (partially|take place|located|new york) [*]
-- Uhm... New York? Lemme see...
+- Uhm... New York? Lemme see...\n\n
 ^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT TITLE, location FROM locations WHERE location LIKE '%New York%' LIMIT 10</call>
 
 //A10
-+ welke films spelen in meer dan 1 land
-- Dat zijn deze films:
-^ <call> *WIP*
++ [*] (films|spelen|meer|1|land) [*]
+- Dat zijn deze films:\n\n
+^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_country GROUP BY movie_id HAVING COUNT(movie_id) > 2 ORDER BY COUNT(movie_id) DESC) as m WHERE id = movie_id LIMIT 10;</call>
 
 //A16
 + [*] (1990|beer|genre) [*]
