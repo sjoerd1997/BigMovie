@@ -78,7 +78,7 @@
 //A9
 + [*] (partially|take place|located|new york) [*]
 - Uhm... New York? Lemme see...\n\n
-^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT TITLE, location FROM locations WHERE location LIKE '%New York%' LIMIT 10</call>
+^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_location, (SELECT id FROM locations WHERE location LIKE '%new york%') as l WHERE location_id = l.id) as m WHERE id = movie_id</call>
 
 //A10
 + [*] (films|spelen|meer|1|land) [*]
