@@ -36,7 +36,7 @@ public class MapSubroutine implements Subroutine {
         String db = "bigmovie";
         String username = "root";
         String password = "1234";
-        String sql = "SELECT location FROM locations WHERE title like " + "\"%" + cmd + "%\"";
+        String sql = "SELECT country from countries where id IN (select country_id from movie_country where movie_id IN (select id from movies where title = " + "\"" + cmd + "\"" + " ))";
         String result = "";
 
         Connection connection = null;
@@ -50,7 +50,7 @@ public class MapSubroutine implements Subroutine {
             statement=(Statement) connection.createStatement();
             resultSet=statement.executeQuery(sql);
             while(resultSet.next()) {
-                result += "\n" + resultSet.getString("location");
+                result += "\n" + resultSet.getString("country");
             }
            
             result += "\n...";
@@ -67,25 +67,7 @@ public class MapSubroutine implements Subroutine {
                 ex.printStackTrace();
             }
         }
-        
-        
-        /*if ("photo".equals(type)) {
-            String f_id = args[1];
-            String caption = "";
-            for (int i=2; i<args.length; i++) 
-                caption = caption + " " + args[i];
-            caption = caption.trim();
-            SendPhoto msg = new SendPhoto()
-                    .setChatId(rs.currentUser())
-                    .setNewPhoto(new File(f_id))
-                    .setCaption(caption);
-            try {
-                das.sendPhoto(msg); // Call method to send the photo with caption
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }*/
-        //return "";
+
         return result;
     }
 }
