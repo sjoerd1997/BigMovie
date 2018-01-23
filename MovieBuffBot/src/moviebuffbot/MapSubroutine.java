@@ -42,6 +42,7 @@ public class MapSubroutine implements Subroutine {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
+        result += "https://maps.googleapis.com/maps/api/staticmap?autoscale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
         
         try {
             connection=(Connection) DriverManager.getConnection(
@@ -50,9 +51,10 @@ public class MapSubroutine implements Subroutine {
             statement=(Statement) connection.createStatement();
             resultSet=statement.executeQuery(sql);
             while(resultSet.next()) {
-                result += "\n" + resultSet.getString("country");
+                //result += "\n" + "https://www.google.com/maps/search/" + resultSet.getString("country") + "\n";
+                result += "&markers=size:mid%7Ccolor:0xff0000%7Clabel:" + resultSet.getString("country") + "%7C" + resultSet.getString("country") ;
             }
-           
+            result += "";
             result += "\n...";
             
             return result;
