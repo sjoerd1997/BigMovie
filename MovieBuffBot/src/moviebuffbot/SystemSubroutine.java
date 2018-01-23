@@ -12,7 +12,7 @@ public class SystemSubroutine implements Subroutine {
     @Override
     public String call(com.rivescript.RiveScript rs, String[] args) {
         String cmd = StringUtils.join(args, " ");
-
+        
         java.util.Scanner s;
         try {
             s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");

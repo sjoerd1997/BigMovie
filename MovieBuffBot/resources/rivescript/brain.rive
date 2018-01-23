@@ -101,9 +101,9 @@
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies WHERE votes = (SELECT MIN(votes) FROM movies WHERE rating = (SELECT MAX(rating) FROM movies));</call>
 
 //B3
-+ (give me all the movies that are made in <countryname> over time|hoi)
++ (give me all the movies that are made in <countryname> over time|hoi|willem)
 - Here's a graph!
-^ <call>system cmd /C cd C:\Users\bauke_000\Desktop\MovieBuffBot\resources\R && rscript video-format.R > nul</call>
+^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript video-format.R > nul</call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8
@@ -114,12 +114,13 @@
 //C7
 + are french films generally less violent
 - Let's take a look.
-^ <call> *WIP*
+^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript c7.r > nul</call>
+^ <call>send photo resources/R/c7.jpeg The graph produced by R</call>
 
 //D1
 + [*] (genre|highest|rating) [*]
-- That's the following.
-^ <call> *WIP*
+- That's the following:\s
+^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT genre FROM genres WHERE id = (SELECT genre_id FROM movies m, movie_genre mg WHERE m.id = mg.movie_id AND rating IS NOT NULL GROUP BY genre_id ORDER BY AVG(rating) DESC LIMIT 1);</call>
 
 //D2
 + [*] (most|populair|location) [*]

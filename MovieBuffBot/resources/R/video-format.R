@@ -2,8 +2,14 @@
 library(RMySQL)
 
 con <- dbConnect(MySQL(), dbname="bigmovie", user="root", password="1234")
-values <- dbGetQuery(con, "SELECT genre AS format, COUNT(title) AS freq FROM genres WHERE genre LIKE '%Horror%'")
-
+values <- dbGetQuery(con, "SELECT COUNT(title) AS amount, release_year
+FROM movies, (
+             SELECT movie_id 
+             FROM movie_country
+             WHERE country_id = 10
+             ) AS c
+                     WHERE id = c.movie_id AND release_year != 0
+                     GROUP BY release_year")
 jpeg(filename='video-format.jpg')
-barplot(values$freq, names.arg = values$format, horiz=FALSE, cex.names=0.5)
+barplot(values$amount, names.arg = values$release_year, xlab = "Year", ylab = "Number of movies", horiz=FALSE, cex.names=1)
 dev.off()
