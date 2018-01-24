@@ -21,6 +21,7 @@ public class MovieBuffBot extends TelegramLongPollingBot {
         bot.setSubroutine("jdbc", new JdbcSubroutine());
         bot.setSubroutine("send", new SendSubroutine(this));
         bot.setSubroutine("map", new MapSubroutine(this));
+        bot.setSubroutine("graph", new GraphSubroutine());
         bot.loadDirectory("resources/rivescript");
         bot.sortReplies();
     }
