@@ -34,22 +34,15 @@
 
 + [*] help [*]
 - You can ask me questions like:\n
-^ Which movies did Liv Tyler act in?\n
-^ What is the date?\n
-^ show files\n
-^ What are common video formats?
+^ what movies take place in (location)
+^ show me a map of (movie) main location
+^
 
 + *
 - Not sure I got that. Type /help for some example questions. Keep in mind that I only understand English.
 
-+ (show files|files|* files *|* files)
-- <call>system ls -l</call>
-
 + what is the date
 - The date is: <call>system date</call>
-
-+ which movies did _ _ *
-- <call>jdbc localhost 3306 imdb imdb imdb select title from cast_info, name, title, kind_type where person_id = name.id and title.id = movie_id and kind_id = kind_type.id and name like '<star2>, <star>' and kind = 'movie'</call>
 
 + [*] video formats [*]
 - There it is! 
@@ -65,11 +58,11 @@
 + (* boi *|boi)
 - Where is your unicycle?
 
-+ (thanks|thank *|* thanks)
++ (thanks|thank *|* thanks|thanks *)
 - No problem!
 - My pleasure.
 - No thanks required ;p
-- yeah, you better be thankfull...
+- yeah, you better be grateful...
 
 ///////////////
 //SQL queries//
@@ -81,7 +74,7 @@
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_location, (SELECT id FROM locations WHERE location LIKE '%new york%') as l WHERE location_id = l.id) as m WHERE id = movie_id</call>
 
 //A10
-+ [*] (films|spelen|meer|1|land) [*]
++ [*] (spelen|meer|land) [*]
 - Dat zijn deze films:\n\n
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_country GROUP BY movie_id HAVING COUNT(movie_id) > 2 ORDER BY COUNT(movie_id) DESC) as m WHERE id = movie_id</call>
 
@@ -101,18 +94,17 @@
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies WHERE votes = (SELECT MIN(votes) FROM movies WHERE rating = (SELECT MAX(rating) FROM movies));</call>
 
 //B3
-+ (give me all the movies that are made in <countryname> over time|hoi|willem)
++ [*] (netherlands|holland|the netherlands|dutch) [*]
 - Here's a graph!
 ^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript video-format.R > nul</call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8
-+ give a map of * main location
-- This is the map.
-^ <call> map <star> </call>
++ [*] (map|location|main) [*]
+- <call> map <star> </call>
 
 //C7
-+ are french films generally less violent
++ [*] (american|violent|violent) [*]
 - Let's take a look.
 ^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript c7.r > nul</call>
 ^ <call>send photo resources/R/c7.jpeg The graph produced by R</call>
