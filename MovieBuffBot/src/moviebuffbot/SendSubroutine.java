@@ -73,7 +73,6 @@ public class SendSubroutine implements Subroutine {
                     File f = new File("result.txt");
                     FileUtils.writeStringToFile(f, result, "utf-8");
                     
-                    System.out.println(result);
                     SendDocument msg = new SendDocument()
                             .setChatId(rs.currentUser())
                             .setNewDocument(f);

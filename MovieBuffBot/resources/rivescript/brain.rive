@@ -34,10 +34,16 @@
 
 + [*] help [*]
 - You can ask me questions like:\n
-^ what movies take place in (location)
-^ show me a map of (movie) main location
-^
-
+^ What movies take place in (location).
+^ Show me a map of (movie) main location.
+^ Which movies have the highest score with the least amount of votes?
+^ Are French movies more cultural or less violent than American ones?
+^ Which movies play in more than one country?
+^ What genre has the highest average rating? (Spoiler alert: It's not comedy)
+^ What is the most popular film location?
+^ Give me all movies from (country) over time.
+^ Which movie take (partially) place in New York?
+ 
 + *
 - Not sure I got that. Type /help for some example questions. Keep in mind that I only understand English.
 
@@ -74,28 +80,28 @@
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_location, (SELECT id FROM locations WHERE location LIKE '%new york%') as l WHERE location_id = l.id) as m WHERE id = movie_id</call>
 
 //A10
-+ [*] (spelen|meer|land) [*]
-- Dat zijn deze films:\n\n
++ [*] (play|more than|country) [*]
+- That'd be these movies:\n\n
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_country GROUP BY movie_id HAVING COUNT(movie_id) > 2 ORDER BY COUNT(movie_id) DESC) as m WHERE id = movie_id</call>
 
 //A16
-+ [*] (1990|beer|genre) [*]
++ [*] (1990|beer) [*]
 - You're rather specific, aren't you? Well here you go:\s
-^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT release_year FROM movies WHERE title LIKE '%beer%' AND release_year >= 1990 GROUP BY release_year ORDER BY COUNT(release_year) DESC;</call>
+^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT release_year FROM movies WHERE title LIKE '%beer%' AND release_year >= 1990 GROUP BY release_year ORDER BY COUNT(release_year) DESC LIMIT 1;</call>
 
 //A18
-+ [*] (shortest|8|5|higher) [*]
-- That's got to be this one.
++ [*] (shortest|higher) [*]
+- That's got to be these ones.
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id, running_time FROM movie_runningtime, (SELECT id, running_time FROM runningtimes WHERE running_time != 0) as r WHERE runningtime_id = r.id) AS m WHERE id = movie_id AND rating >= 8.5 AND running_time = (SELECT MIN(running_time) FROM runningtimes WHERE running_time != 0);</call>
 
 //A19
 + [*] (highest|least|votes) [*]
-- That's this movie.
+- That's these movies.
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies WHERE votes = (SELECT MIN(votes) FROM movies WHERE rating = (SELECT MAX(rating) FROM movies));</call>
 
 //B3
-+ [*] made in * over time [*]
-- Here's a graph!
++ [*] released in * over [*]
+- Here's a <star> graph!
 ^ <call>graph cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript video-format.R > nul <star> </call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
@@ -104,18 +110,18 @@
 - <call> map <star> </call>
 
 //C7
-+ [*] (american|violent|violent) [*]
-- Let's take a look.
++ [*] (american|violent|french) [*]
+- See for yourself.
 ^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript c7.r > nul</call>
-^ <call>send photo resources/R/c7.jpeg The graph produced by R</call>
+^ <call>send photo resources/R/c7.jpeg The graph is produced with R</call>
 
 //D1
-+ [*] (genre|highest|rating) [*]
++ [*] (genre|highest average|highest rating) [*]
 - That's the following:\s
 ^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT genre FROM genres WHERE id = (SELECT genre_id FROM movies m, movie_genre mg WHERE m.id = mg.movie_id AND rating IS NOT NULL GROUP BY genre_id ORDER BY AVG(rating) DESC LIMIT 1);</call>
 
 //D2
-+ [*] (most|populair|filmlocation) [*]
++ [*] (most populair|film location) [*]
 - That's gotta be this place:\s
 ^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT location FROM locations WHERE id = (SELECT location_id FROM movie_location GROUP BY location_id ORDER BY COUNT(location_id) DESC LIMIT 1);</call>
 
