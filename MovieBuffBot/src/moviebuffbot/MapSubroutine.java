@@ -27,22 +27,24 @@ public class MapSubroutine implements Subroutine {
     
     @Override
     public String call(com.rivescript.RiveScript rs, String[] args) {
-        //String type = args[0];
         String cmd = StringUtils.join(args, " ");
-        System.out.println(cmd);
+        //System.out.println(cmd); for debugging
         
+        //Connection information for database
         String host = "localhost";
         String port = "3306";
         String db = "bigmovie";
         String username = "root";
         String password = "1234";
+        //Query for getting Countries where a movie
         String sql = "SELECT country from countries where id IN (select country_id from movie_country where movie_id IN (select id from movies where title = " + "\"" + cmd + "\"" + " ))";
+        String like_query = "SELECT title from movies where title like" + "\"%" + cmd + "%\" order by title limit 20";
         String result = "";
 
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        result += "https://maps.googleapis.com/maps/api/staticmap?autoscale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
+        result += "This is the map: \n" + "https://maps.googleapis.com/maps/api/staticmap?autoscale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
         
         try {
             connection=(Connection) DriverManager.getConnection(
@@ -50,14 +52,30 @@ public class MapSubroutine implements Subroutine {
                     username, password); 
             statement=(Statement) connection.createStatement();
             resultSet=statement.executeQuery(sql);
-            while(resultSet.next()) {
-                //result += "\n" + "https://www.google.com/maps/search/" + resultSet.getString("country") + "\n";
-                result += "&markers=size:mid%7Ccolor:0xff0000%7Clabel:" + resultSet.getString("country") + "%7C" + resultSet.getString("country") ;
+            int label = 0;
+            //Check if resultSet doesn't return any results, if it doesn't return anything check if there is anything like the title That was given.
+            if(!resultSet.isBeforeFirst()){
+                resultSet=statement.executeQuery(like_query);
+                
+                if(!resultSet.isBeforeFirst()){
+                    result = "That Movie does not exist";
+                } 
+                else {
+                    result = "That Movie does not exist, Dit you mean one fo these movies? \n";
+                    while(resultSet.next()){
+                        result += resultSet.getString("title") + "\n";
+                    }
+                }
+            } 
+            else {
+                // Create link to map of countries
+                while(resultSet.next()) {
+                    result += "&markers=size:mid%7Ccolor:0xff0000%7Clabel:" + label + "%7C" + resultSet.getString("country") ;
+                    label++;
+                }
+                result += "";
+               
             }
-            result += "";
-            result += "\n...";
-            
-            return result;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally{
