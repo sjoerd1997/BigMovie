@@ -94,7 +94,7 @@
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies WHERE votes = (SELECT MIN(votes) FROM movies WHERE rating = (SELECT MAX(rating) FROM movies));</call>
 
 //B3
-+ [*] made in * over time [*]
++ willem *
 - Here's a graph!
 ^ <call>graph cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript video-format.R > nul <star> </call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
