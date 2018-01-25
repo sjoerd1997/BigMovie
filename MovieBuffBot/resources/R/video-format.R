@@ -1,5 +1,6 @@
 # install.packages("RMySQL")
 library(RMySQL)
+library(DBI)
 
 
 con <- dbConnect(MySQL(), dbname="bigmovie", user="root", password="1234")

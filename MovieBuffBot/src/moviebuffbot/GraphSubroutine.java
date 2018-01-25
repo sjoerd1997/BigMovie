@@ -16,22 +16,24 @@ public class GraphSubroutine implements Subroutine {
 
     @Override
     public String call(com.rivescript.RiveScript rs, String[] args) {
-        String cmd = StringUtils.join(args, " ");
+        String cmd = "";
         String result = "";
         
         int number = 0;
         for(String s : args){
-            if(number <= 8) cmd += args[number];
+            if(number <= 8) {
+                cmd += args[number] + " ";
+            }
             number++;
         }
         String path = "C:\\Users\\emiel\\OneDrive\\Documenten\\GitHub\\BigMovie\\MovieBuffBot\\resources\\R\\video-format.R";
-        ReplaceString(path, "replacevalue", args[9]);
+        ReplaceString(path, "replacevalue", args[9]); //Replace WHERE clause in R script with user input
         
         java.util.Scanner s;
         try {
             s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
             result += s.hasNext() ? s.next() : "";
-            ReplaceString(path,args[9], "replacevalue");
+            ReplaceString(path,args[9], "replacevalue"); //Set back WHERE clause in R for repetitive use
             return result;
         } catch (IOException ex) {
             Logger.getLogger(SystemSubroutine.class.getName()).log(Level.SEVERE, null, ex);
@@ -40,7 +42,7 @@ public class GraphSubroutine implements Subroutine {
     }
     
     public void ReplaceString(String path, String ToReplace, String ReplaceValue) {
-                File fileToBeModified = new File(path);
+        File fileToBeModified = new File(path);
 
         String oldContent = "";
 

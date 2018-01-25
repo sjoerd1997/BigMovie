@@ -34,5 +34,5 @@ ON m.movie_id = a.movie_id;
 jpeg(filename='c7.jpeg')
 slices <- c(as.integer(usa), as.integer(france))
 lbls <- c("USA", "France")
-pie(slices, labels = lbls, main="Pie Chart of Horror Movies")
+pie(slices, labels = lbls, col=rainbow(length(lbls)), main="Pie Chart of Horror Movies")
 dev.off()

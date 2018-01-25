@@ -44,7 +44,7 @@ public class MapSubroutine implements Subroutine {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        result += "This is the map: \n" + "https://maps.googleapis.com/maps/api/staticmap?autoscale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
+        result += "\nmaps.googleapis.com/maps/api/staticmap?autoscale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
         
         try {
             connection=(Connection) DriverManager.getConnection(
@@ -61,7 +61,7 @@ public class MapSubroutine implements Subroutine {
                     result = "That Movie does not exist";
                 } 
                 else {
-                    result = "That Movie does not exist, Dit you mean one fo these movies? \n";
+                    result = "That Movie does not exist, Dit you mean one of these movies? \n";
                     while(resultSet.next()){
                         result += resultSet.getString("title") + "\n";
                     }

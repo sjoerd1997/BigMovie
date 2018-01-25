@@ -14,6 +14,9 @@
 - 'Aight then!
 - That's settled then.
 
++ [*] pick up line [*]
+- Hey, how are you doing? ;)
+
 + nice
 - Aye.
 - Glad you're satisfied.
@@ -30,19 +33,20 @@
 - The dead speak to me... Nah, I'm good!
 
 + [*] start [*]
-- I'm Movie Buff bot! Ask me questions about your favorite movies. Type /help for some example questions.
+- I'm willem bot! Ask me questions about your favorite movies. Type /help for some example questions.
 
 + [*] help [*]
 - You can ask me questions like:\n
-^ What movies take place in (location).
-^ Show me a map of (movie) main location.
-^ Which movies have the highest score with the least amount of votes?
-^ Are French movies more cultural or less violent than American ones?
-^ Which movies play in more than one country?
-^ What genre has the highest average rating? (Spoiler alert: It's not comedy)
-^ What is the most popular film location?
-^ Give me all movies from (country) over time.
-^ Which movie take (partially) place in New York?
+^ Where plays <Movie name>?\n
+^ In what year between 1990 and now were the most movies released with beer in the title?\n
+^ What are the shortest movies with a rating of 8.5 or higher?\n
+^ Which movies have the highest score with the least amount of votes?\n
+^ Does America make more horror movies than France?\n
+^ Which movies play in more than one country?\n
+^ What genre has the highest average rating? \n
+^ What is the most popular film location?\n
+^ Show me a graph of movies released in <country> over time.\n
+^ Which movie take (partially) place in New York?\n
  
 + *
 - Not sure I got that. Type /help for some example questions. Keep in mind that I only understand English.
@@ -77,7 +81,7 @@
 //A9
 + [*] (partially|take place|located|new york) [*]
 - Uhm... New York? Lemme see...\n\n
-^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id FROM movie_location, (SELECT id FROM locations WHERE location LIKE '%new york%') as l WHERE location_id = l.id) as m WHERE id = movie_id</call>
+^ <call>send file localhost 3306 bigmovie root 1234 SELECT DISTINCT title FROM movies, (SELECT movie_id FROM movie_location, (SELECT id FROM locations WHERE location LIKE '%new york%') as l WHERE location_id = l.id) as m WHERE id = movie_id</call>
 
 //A10
 + [*] (play|more than|country) [*]
@@ -95,7 +99,7 @@
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies, (SELECT movie_id, running_time FROM movie_runningtime, (SELECT id, running_time FROM runningtimes WHERE running_time != 0) as r WHERE runningtime_id = r.id) AS m WHERE id = movie_id AND rating >= 8.5 AND running_time = (SELECT MIN(running_time) FROM runningtimes WHERE running_time != 0);</call>
 
 //A19
-+ [*] (highest|least|votes) [*]
++ [*] (least|votes) [*]
 - That's these movies.
 ^ <call>send file localhost 3306 bigmovie root 1234 SELECT title FROM movies WHERE votes = (SELECT MIN(votes) FROM movies WHERE rating = (SELECT MAX(rating) FROM movies));</call>
 
@@ -106,18 +110,19 @@
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
 //B8
-+ [*] (map|location|main) [*]
-- <call> map <star> </call>
++ where plays * ?
+- This is the map: 
+^ <call> map <star> </call>
 
 //C7
-+ [*] (american|violent|french) [*]
++ [*] horror movies [*]
 - See for yourself.
 ^ <call>system cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript c7.r > nul</call>
 ^ <call>send photo resources/R/c7.jpeg The graph is produced with R</call>
 
 //D1
-+ [*] (genre|highest average|highest rating) [*]
-- That's the following:\s
++ what genre has [*]
+- The genre with the highest average rating is: \s
 ^ <call>jdbc localhost 3306 bigmovie root 1234 SELECT genre FROM genres WHERE id = (SELECT genre_id FROM movies m, movie_genre mg WHERE m.id = mg.movie_id AND rating IS NOT NULL GROUP BY genre_id ORDER BY AVG(rating) DESC LIMIT 1);</call>
 
 //D2

@@ -1,26 +1,31 @@
-A5:
-SELECT TITLE, DURATION
-FROM (list)
-WHERE MAX(DURATION);
-
 A9:
-SELECT TITLE, LOCATION
-FROM (list)
-WHERE LOCATION LIKE 'New York';
+SELECT DISTINCT title FROM movies, 
+(SELECT movie_id FROM movie_location, 
+(SELECT id FROM locations WHERE location LIKE '%new york%') as l WHERE location_id = l.id) as m 
+WHERE id = movie_id;
 
 A10:
-SELECT TITLE, COUNT(COUNTRY)
-FROM (list)
-WHERE COUNTRY > 1;
-
-A18:
-SELECT TITLE, RATING, DURATION
-FROM (list)
-WHERE MIN(DURATION)
-AND RATING >= 8.5;
+SELECT title FROM movies, 
+(SELECT movie_id FROM movie_country GROUP BY movie_id HAVING COUNT(movie_id) > 2 ORDER BY COUNT(movie_id) DESC) as m 
+WHERE id = movie_id;
 
 A16:
-SELECT TITLE, YEAR
-FROM (list)
-WHERE YEAR BETWEEN 1990 AND 2018;
-...
+SELECT release_year 
+FROM movies 
+WHERE title LIKE '%beer%' AND release_year >= 1990 GROUP BY release_year ORDER BY COUNT(release_year) DESC LIMIT 1;
+
+A18:
+SELECT title FROM movies, 
+(SELECT movie_id, running_time FROM movie_runningtime, 
+(SELECT id, running_time FROM runningtimes WHERE running_time != 0) as r WHERE runningtime_id = r.id) AS m 
+WHERE id = movie_id AND rating >= 8.5 AND running_time = (SELECT MIN(running_time) FROM runningtimes WHERE running_time != 0);
+
+D1:
+SELECT genre 
+FROM genres 
+WHERE id = (SELECT genre_id FROM movies m, movie_genre mg WHERE m.id = mg.movie_id AND rating IS NOT NULL GROUP BY genre_id ORDER BY AVG(rating) DESC LIMIT 1);
+
+D2:
+SELECT location 
+FROM locations 
+WHERE id = (SELECT location_id FROM movie_location GROUP BY location_id ORDER BY COUNT(location_id) DESC LIMIT 1);

@@ -95,7 +95,7 @@
 
 //B3
 + [*] (made in * over time|released in * over time|from * over time) [*]
-- Here's a <star> graph!
+- Here's a graph from <star> !
 ^ <call>graph cmd /C cd C:\Users\emiel\OneDrive\Documenten\GitHub\BigMovie\MovieBuffBot\resources\R && rscript video-format.R > nul <star> </call>
 ^ <call>send photo resources/R/video-format.jpg The graph produced by R</call>
 
